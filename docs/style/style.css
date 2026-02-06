@@ -132,6 +132,7 @@ input[type="text"]:focus {
     transition:
         opacity 0.25s ease,
         transform 0.25s ease;
+    pointer-events: none;
 }
 
 .dropdown-content a {
@@ -141,7 +142,6 @@ input[type="text"]:focus {
     background-color: #fff;
     color: #333;
     transition: background 0.2s;
-    pointer-events: none;
 }
 
 .dropdown-content a:hover {
