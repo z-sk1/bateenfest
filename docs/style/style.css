@@ -141,6 +141,7 @@ input[type="text"]:focus {
     background-color: #fff;
     color: #333;
     transition: background 0.2s;
+    pointer-events: none;
 }
 
 .dropdown-content a:hover {
