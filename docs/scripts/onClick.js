@@ -1,6 +1,6 @@
 function showSection(id) {
   // hide all sections
-  document.querySelectorAll("section").forEach(section => {
+  document.querySelectorAll("section").forEach((section) => {
     section.classList.remove("active");
   });
 
@@ -9,12 +9,12 @@ function showSection(id) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  showSection('home')
+  showSection("home");
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   // handle dropdowns (supports multiple)
-  document.querySelectorAll(".dropdown").forEach(drop => {
+  document.querySelectorAll(".dropdown").forEach((drop) => {
     const btn = drop.querySelector(".dropbtn");
     const menu = drop.querySelector(".dropdown-content");
 
@@ -34,23 +34,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // handle clicks inside menu links (prevent page jump and close dropdown)
-    menu.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", (e) => {
-            drop.classList.remove("active");
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        drop.classList.remove("active");
 
-            // only prevent default if href is "#" or empty
-            if (link.getAttribute("href") === "#" || !link.getAttribute("href")) {
-            e.preventDefault();
-            }
+        // only prevent default if href is "#" or empty
+        if (link.getAttribute("href") === "#" || !link.getAttribute("href")) {
+          e.preventDefault();
+        }
 
-            e.stopPropagation();  // prevent the document click from immediately closing
-        });
+        e.stopPropagation(); // prevent the document click from immediately closing
+      });
     });
-});
+  });
 
-
-  // close any open dropdown when clicking outside
   document.addEventListener("click", () => {
-    document.querySelectorAll(".dropdown.active").forEach(d => d.classList.remove("active"));
+    document
+      .querySelectorAll(".dropdown.active")
+      .forEach((d) => d.classList.remove("active"));
   });
 });
