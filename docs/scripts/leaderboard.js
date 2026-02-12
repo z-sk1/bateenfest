@@ -3,8 +3,27 @@ let leaderboards = {
   chess: [],
 };
 
-async function addScore(section, name, points) {
-  const token = localStorage.getItem("token");
+async function addScore(section) {
+  const token = localStorage.getItem("token"); // JWT from login
+
+  let nameInput = document.getElementById(`${section}-name`);
+  let pointsInput = document.getElementById(`${section}-points`);
+
+  const name = nameInput.value;
+  const points = parseInt(pointsInput.value);
+
+  // You can use the username from the logged-in user (stored in localStorage)
+  const username = localStorage.getItem("username"); // make sure you save this at login
+
+  if (!token) {
+    alert("You must be logged in as admin to add a score!");
+    return;
+  }
+
+  if (!name || isNaN(points)) {
+    alert("Please fill in both name and points!");
+    return;
+  }
 
   const res = await fetch(`${API_BASE}/admin/leaderboard`, {
     method: "POST",
@@ -13,16 +32,18 @@ async function addScore(section, name, points) {
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify({
-      section,
-      name,
-      points,
+      username, // required by backend
+      name, // display name
+      section, // darts, chess, etc.
+      points, // score
     }),
   });
 
   if (res.ok) {
-    loadLeaderboard(section);
+    loadLeaderboard(section); // refresh the table
   } else {
-    alert("Failed to add score");
+    const text = await res.text();
+    alert("Failed to add score: " + text);
   }
 }
 
