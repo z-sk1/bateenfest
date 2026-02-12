@@ -39,6 +39,8 @@ async function login() {
   const data = await res.json();
   if (res.ok && data.token) {
     localStorage.setItem("token", data.token);
+    loadLeaderboard("darts");
+    loadLeaderboard("chess");
     alert("Login successful!");
   } else {
     alert(data.error || "Login failed");
