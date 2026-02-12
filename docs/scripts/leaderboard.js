@@ -44,9 +44,9 @@ function displayScores(section) {
               <td>${player.name}</td>
               <td>${player.points}</td>
             `;
-    if (i === 0) tr.style.backgroundColor = "gold";
-    if (i === 1) tr.style.backgroundColor = "silver";
-    if (i === 2) tr.style.backgroundColor = "#cd7f32"; // bronze
+    if (i === 0) row.style.backgroundColor = "gold";
+    if (i === 1) row.style.backgroundColor = "silver";
+    if (i === 2) row.style.backgroundColor = "#cd7f32"; // bronze
     body.append(row);
   });
 }
