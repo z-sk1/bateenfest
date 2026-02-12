@@ -41,7 +41,7 @@ function displayScores(section) {
     const tr = document.createElement("tr");
 
     const rankTd = document.createElement("td");
-    rankTd.textContent = index + 1;
+    rankTd.textContent = i + 1;
 
     const nameTd = document.createElement("td");
     nameTd.textContent = player.name;
