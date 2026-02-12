@@ -3,50 +3,45 @@ let leaderboards = {
   chess: [],
 };
 
-function addScore(section) {
-  const nameInput = document.getElementById(`${section}-name`);
-  const pointsInput = document.getElementById(`${section}-points`);
+async function addScore(section, name, points) {
+  const token = localStorage.getItem("token");
 
-  const name = nameInput.value.trim();
-  const points = parseInt(pointsInput.value);
+  const res = await fetch(`${API_BASE}/leaderboard`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      section,
+      name,
+      points,
+    }),
+  });
 
-  if (!name || isNaN(points)) {
-    alert("Please enter valid name and points");
-    return;
+  if (res.ok) {
+    loadLeaderboard(section);
+  } else {
+    alert("Failed to add score");
   }
-
-  leaderboards[section].push({ name, points });
-  leaderboards[section].sort((a, b) => b.points - a.points);
-  localStorage.setItem(
-    `leaderboard-${section}`,
-    JSON.stringify(leaderboards[section]),
-  );
-
-  displayScores(section);
-
-  nameInput.value = "";
-  pointsInput.value = "";
 }
 
-function displayScores(section) {
-  const body = document.getElementById(`${section}-body`);
-  body.innerHTML = "";
+async function loadLeaderboard(section) {
+  const res = await fetch(`${API_BASE}/leaderboard/${section}`);
+  const data = await res.json();
 
-  const saved = localStorage.getItem(`leaderboard-${section}`);
-  if (!saved) return;
+  const tbody = document.getElementById(`${section}-body`);
+  tbody.innerHTML = "";
 
-  const players = JSON.parse(saved);
-
-  players.forEach((player, i) => {
+  data.forEach((entry) => {
     const row = document.createElement("tr");
+
     row.innerHTML = `
-              <td>${i + 1}</td>
-              <td>${player.name}</td>
-              <td>${player.points}</td>
-            `;
-    if (i === 0) row.style.backgroundColor = "gold";
-    if (i === 1) row.style.backgroundColor = "silver";
-    if (i === 2) row.style.backgroundColor = "#cd7f32"; // bronze
-    body.append(row);
+      <td>${entry.rank}</td>
+      <td>${entry.name}</td>
+      <td>${entry.points}</td>
+    `;
+
+    tbody.appendChild(row);
   });
 }

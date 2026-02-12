@@ -20,6 +20,9 @@
                     <a href="#" onclick="showSection('chess')">Speed Chess</a>
                 </div>
             </div>
+
+            <button onclick="showSection('signup')">Sign Up</button>
+            <button onclick="showSection('login')">Login</button>
         </header>
 
         <section id="home">
@@ -97,8 +100,37 @@
                 </table>
             </div>
         </section>
+
+        <section id="signup">
+            <input
+                type="text"
+                placeholder="Create a username..."
+                id="signUpUsername"
+            /><br /><br />
+            <input
+                type="text"
+                placeholder="Create a password..."
+                id="signUpPassword"
+            /><br /><br />
+            <button onclick="signup()">Create Account</button><br /><br />
+        </section>
+
+        <section id="login">
+            <input
+                type="text"
+                placeholder="Type in your username..."
+                id="loginUsername"
+            /><br /><br />
+            <input
+                type="text"
+                placeholder="Type in your password..."
+                id="loginPassword"
+            /><br /><br />
+            <button onclick="login()">Login</button><br /><br />
+        </section>
     </body>
 
+    <script src="scripts/auth.js"></script>
     <script src="scripts/leaderboard.js"></script>
     <script src="scripts/typing.js"></script>
     <script src="scripts/onClick.js"></script>
