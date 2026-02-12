@@ -19,7 +19,7 @@ function addScore(section) {
   leaderboards[section].sort((a, b) => b.points - a.points);
   localStorage.setItem(`leaderboard-${section}`, leaderboards);
 
-  displayScores(scores);
+  displayScores(section);
 
   nameInput.value = "";
   pointsInput.value = "";
