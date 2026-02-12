@@ -1,4 +1,4 @@
-const API_BASE = "signin-api.railway.internal";
+const API_BASE = "https://signin-api.railway.internal";
 
 async function signup() {
   const username = document.getElementById("signUpUsername").value.trim();
