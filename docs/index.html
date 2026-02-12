@@ -74,7 +74,17 @@
                 <input type="number" id="chess-points" placeholder="Points" />
                 <button onclick="addScore('chess')">Add</button>
 
-                <ul id="chess-list"></ul>
+                <table id="chess-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="chess-body"></tbody>
+                </table>
             </div>
         </section>
     </body>

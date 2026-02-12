@@ -29,18 +29,34 @@ function addScore(section) {
 }
 
 function displayScores(section) {
-  const list = document.getElementById(`${section}-list`);
-  list.innerHTML = "";
+  const body = document.getElementById(`${section}-body`);
+  body.innerHTML = "";
 
   const saved = localStorage.getItem(`leaderboard-${section}`);
-
   if (!saved) return;
 
   const players = JSON.parse(saved);
 
   players.forEach((player, i) => {
-    const li = document.createElement("li");
-    li.textContent = `#${i + 1} ${player.name} - ${player.points}`;
-    list.appendChild(li);
+    const tr = document.createElement("tr");
+
+    const rankTd = document.createElement("td");
+    rankTd.textContent = index + 1;
+
+    const nameTd = document.createElement("td");
+    nameTd.textContent = player.name;
+
+    const pointsTd = document.createElement("td");
+    pointsTd.textContent = player.points;
+
+    if (i === 0) tr.style.backgroundColor = "gold";
+    if (i === 1) tr.style.backgroundColor = "silver";
+    if (i === 2) tr.style.backgroundColor = "#cd7f32"; // bronze
+
+    tr.appendChild(rankTd);
+    tr.appendChild(nameTd);
+    tr.appendChild(pointsTd);
+
+    body.appendChild(tr);
   });
 }
