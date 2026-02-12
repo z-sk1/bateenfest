@@ -7,7 +7,7 @@
 
     <body>
         <header>
-            <h1 class="typing colored">9B BateenFest</h1>
+            <h1>9B BateenFest</h1>
 
             <div class="dropdown">
                 <button class="dropbtn">
@@ -33,14 +33,22 @@
         </section>
 
         <section id="darts">
-            <h2 class="typing colored">Darts</h2>
+            <h2>Darts</h2>
             <p>For the price of 5 AED, you get 3 chances to throw a dart</p>
             <p>Most points wins! You will get a sweet prize!!</p>
             <p>15+ points guarantees you more candy</p>
+
+            <div class = "leaderboard">
+                <input type = "text" id = "chess-name" placeholder = "Name">
+                <input type = "number" id = "chess-points" placeholder = "Points">
+                <button onclick = "addScore('chess')"
+
+                <ul id = "chess-list"></ul>
+            </div>
         </section>
 
         <section id="slime">
-            <h2 class="typing colored">Slime Making</h2>
+            <h2>Slime Making</h2>
             <p>
                 For 15 AED, you can make your own slime, or let us make it for
                 you!
@@ -52,7 +60,7 @@
         </section>
 
         <section id="chess">
-            <h2 class="typing colored">Speed Chess</h2>
+            <h2>Speed Chess</h2>
             <p>
                 For 10 AED, you get to play a rapid game of chess at 2 minutes
             </p>
@@ -60,6 +68,14 @@
                 Winners stay on, and then after 2 wins in a row, you will get a
                 very nice prize!!!!
             </p>
+
+            <div class = "leaderboard">
+                <input type = "text" id = "chess-name" placeholder = "Name">
+                <input type = "number" id = "chess-points" placeholder = "Points">
+                <button onclick = "addScore('chess')"
+
+                <ul id = "chess-list"></ul>
+            </div>
         </section>
     </body>
 
