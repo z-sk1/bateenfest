@@ -6,7 +6,7 @@ let leaderboards = {
 async function addScore(section, name, points) {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${API_BASE}/leaderboard`, {
+  const res = await fetch(`${API_BASE}/admin/leaderboard`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
