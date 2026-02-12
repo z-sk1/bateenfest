@@ -38,25 +38,15 @@ function displayScores(section) {
   const players = JSON.parse(saved);
 
   players.forEach((player, i) => {
-    const tr = document.createElement("tr");
-
-    const rankTd = document.createElement("td");
-    rankTd.textContent = i + 1;
-
-    const nameTd = document.createElement("td");
-    nameTd.textContent = player.name;
-
-    const pointsTd = document.createElement("td");
-    pointsTd.textContent = player.points;
-
+    const row = document.createElement("tr");
+    row.innerHTML = `
+              <td>${i + 1}</td>
+              <td>${player.name}</td>
+              <td>${player.points}</td>
+            `;
     if (i === 0) tr.style.backgroundColor = "gold";
     if (i === 1) tr.style.backgroundColor = "silver";
     if (i === 2) tr.style.backgroundColor = "#cd7f32"; // bronze
-
-    tr.appendChild(rankTd);
-    tr.appendChild(nameTd);
-    tr.appendChild(pointsTd);
-
-    body.appendChild(tr);
+    body.append(row);
   });
 }
