@@ -17,7 +17,10 @@ function addScore(section) {
 
   leaderboards[section].push({ name, points });
   leaderboards[section].sort((a, b) => b.points - a.points);
-  localStorage.setItem(`leaderboard-${section}`, leaderboards);
+  localStorage.setItem(
+    `leaderboard-${section}`,
+    JSON.stringify(leaderboards[section]),
+  );
 
   displayScores(section);
 
@@ -31,9 +34,13 @@ function displayScores(section) {
 
   const saved = localStorage.getItem(`leaderboard-${section}`);
 
-  saved.forEach((player, index) => {
+  if (!saved) return;
+
+  const players = JSON.parse(saved);
+
+  players.forEach((player, i) => {
     const li = document.createElement("li");
-    li.textContent = `#${index + 1} ${player.name} - ${player.points}`;
+    li.textContent = `#${i + 1} ${player.name} - ${player.points}`;
     list.appendChild(li);
   });
 }
