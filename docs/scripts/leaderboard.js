@@ -85,7 +85,7 @@ async function deleteScore(id) {
     return;
   }
 
-  const res = await fetch(`${API_BASE}/leaderboard/${id}`, {
+  const res = await fetch(`${API_BASE}/admin/leaderboard/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -114,7 +114,7 @@ async function editScore(id) {
     points,
   };
 
-  const res = await fetch(`${API_BASE}/leaderboard/${id}`, {
+  const res = await fetch(`${API_BASE}/admin/leaderboard/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
