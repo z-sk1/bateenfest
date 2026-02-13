@@ -1,3 +1,11 @@
+window.onload = function () {
+  loadLeaderboard("darts");
+  loadLeaderboard("chess");
+
+  startAutoRefresh("darts");
+  startAutoRefresh("chess");
+};
+
 let leaderboards = {
   darts: [],
   chess: [],
@@ -61,8 +69,66 @@ async function loadLeaderboard(section) {
       <td>${entry.rank}</td>
       <td>${entry.name}</td>
       <td>${entry.points}</td>
+      <button onclick = "deleteScore(${entry.id})">Delete</button>
+      <button onclick = "editScore(${entry.id})">Edit</button>
     `;
 
     tbody.appendChild(row);
   });
+}
+
+async function deleteScore(id) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Please log in first!");
+    return;
+  }
+
+  const res = await fetch(`${API_BASE}/leaderboard/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.ok) {
+    console.log("Score deleted successfully!");
+    loadLeaderboard("darts");
+    loadLeaderboard("chess");
+  } else {
+    const data = await res.json();
+    alert("Failed to delete score:", data.error || res.StatusText);
+  }
+}
+
+async function editScore(id) {
+  const name = prompt("New name?");
+  const points = prompt("New amount of points?");
+  if (!name && !points) return;
+
+  const token = localStorage.getItem("token");
+
+  const newScore = {
+    name,
+    points,
+  };
+
+  const res = await fetch(`${API_BASE}/leaderboard/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(newScore),
+  });
+
+  const data = await res.json();
+  if (res.ok) {
+    alert("Score updated!");
+    loadLeaderboard("darts");
+    loadLeaderboard("chess");
+  } else {
+    alert(data.error || "Failed to update score");
+  }
 }

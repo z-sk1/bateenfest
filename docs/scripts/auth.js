@@ -20,6 +20,9 @@ async function signup() {
   } else {
     alert(data.error || "Signup failed");
   }
+
+  document.getElementById("signUpUsername").textContent = "";
+  document.getElementById("signUpPassword").textContent = "";
 }
 
 async function login() {
@@ -45,4 +48,7 @@ async function login() {
   } else {
     alert(data.error || "Login failed");
   }
+
+  document.getElementById("loginUsername").textContent = "";
+  document.getElementById("loginPassword").textContent = "";
 }
