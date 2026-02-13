@@ -6,6 +6,12 @@ window.onload = function () {
   startAutoRefresh("chess");
 };
 
+function startAutoRefresh(section) {
+  setInterval(() => {
+    loadLeaderboard(section);
+  }, 3000); // refresh every 3 seconds
+}
+
 let leaderboards = {
   darts: [],
   chess: [],
@@ -56,25 +62,43 @@ async function addScore(section) {
 }
 
 async function loadLeaderboard(section) {
-  const res = await fetch(`${API_BASE}/leaderboard/${section}`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/leaderboard/${section}`);
 
-  const tbody = document.getElementById(`${section}-body`);
-  tbody.innerHTML = "";
+    if (!res.ok) {
+      console.error("Failed:", res.status);
+      return;
+    }
 
-  data.forEach((entry) => {
-    const row = document.createElement("tr");
+    const data = await res.json();
 
-    row.innerHTML = `
-      <td>${entry.rank}</td>
-      <td>${entry.name}</td>
-      <td>${entry.points}</td>
-      <button onclick = "deleteScore(${entry.id})">Delete</button>
-      <button onclick = "editScore(${entry.id})">Edit</button>
-    `;
+    if (!Array.isArray(data)) {
+      console.error("Leaderboard response is not an array:", data);
+      return;
+    }
 
-    tbody.appendChild(row);
-  });
+    const tbody = document.getElementById(`${section}-body`);
+    if (!tbody) {
+      console.error("Table body not found for section:", section);
+      return;
+    }
+
+    tbody.innerHTML = "";
+
+    data.forEach((entry) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${entry.rank}</td>
+        <td>${entry.name}</td>
+        <td>${entry.points}</td>
+        <button onclick = "deleteScore(${entry.id})">Delete</button>
+        <button onclick = "editScore(${entry.id})">Edit</button>
+      `;
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    console.error("Error loading leaderboard:", err);
+  }
 }
 
 async function deleteScore(id) {
