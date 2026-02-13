@@ -91,8 +91,8 @@ async function loadLeaderboard(section) {
         <td>${entry.rank}</td>
         <td>${entry.name}</td>
         <td>${entry.points}</td>
-        <button onclick = "deleteScore(${entry.id})">Delete</button>
-        <button onclick = "editScore(${entry.id})">Edit</button>
+        <td><button onclick = "deleteScore(${entry.id})">Delete</button></td>
+        <td><button onclick = "editScore(${entry.id})">Edit</button></td>
       `;
       tbody.appendChild(row);
     });
